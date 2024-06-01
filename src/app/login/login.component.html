@@ -1,0 +1,13 @@
+<form [formGroup]="loginForm" (submit)="login()">
+    <div class="form-element">
+        <label for="username">Email:</label>
+        <input type="text" id="email" formControlName="email" required>
+    </div>
+
+    <div class="form-element">
+        <label for="password">Password:</label>
+        <input type="password" id="password" formControlName="password" required>
+    </div>
+
+    <button id="btn-submit" type="submit">Login</button>
+</form>
