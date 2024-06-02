@@ -28,6 +28,8 @@ export class WelcomeComponent {
 
   save() {
     const text = this.textContainer.nativeElement.innerText;
-    this.welcomeService.save(text);
+    this.welcomeService.save(text).then(() => {
+      console.log('Saved text:', text);
+    });
   }
 }
