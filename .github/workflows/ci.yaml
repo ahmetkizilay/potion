@@ -21,6 +21,8 @@ jobs:
           node-version: 'lts/iron'
       - name: Install dependencies
         run: npm install
+      - name: Test Firestore Rules
+        run: npm run test:firestore-rules
       - name: Run Tests
         run: npm test -- --configuration=ci
       - name: Build
