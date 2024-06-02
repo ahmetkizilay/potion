@@ -4,22 +4,30 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getAuth, provideAuth, connectAuthEmulator } from '@angular/fire/auth';
+import { provideFirestore, getFirestore, connectFirestoreEmulator } from '@angular/fire/firestore';
+
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(),
-    provideFirebaseApp(() => initializeApp({
-      "projectId": "potion-bce28",
-      "appId": "1:91139147310:web:407b590998cdd83dbf01bf",
-      "storageBucket": "potion-bce28.appspot.com",
-      "apiKey": "AIzaSyAWqj_zYk5aKnhcAG2n_eoL_7dpJZLnxQY",
-      "authDomain": "potion-bce28.firebaseapp.com",
-      "messagingSenderId": "91139147310",
-      "measurementId": "G-X92K3JKDK1"
-    })),
-    provideAuth(() => getAuth()),
+    provideFirebaseApp(() => initializeApp(environment.firebase.config)),
+    provideAuth(() => {
+      const auth = getAuth();
+      if (environment.firebase.emulators.auth) {
+        connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
+      }
+      return auth;
+    }),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+      if (environment.firebase.emulators.firestore) {
+        connectFirestoreEmulator(firestore, 'localhost', 8080);
+      }
+      return firestore
+    }),
   ]
 };
