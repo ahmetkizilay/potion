@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:potion": "node dist/potion/server/server.mjs"
+    "serve:ssr:potion": "node dist/potion/server/server.mjs",
+    "test:firestore-rules": "firebase emulators:exec --only firestore \"jest --forceExit firestore/rules.spec.ts\""
   },
   "private": true,
   "dependencies": {
@@ -31,6 +32,9 @@
     "@angular-devkit/build-angular": "^18.0.2",
     "@angular/cli": "^18.0.2",
     "@angular/compiler-cli": "^18.0.0",
+    "@babel/preset-env": "^7.24.6",
+    "@babel/preset-typescript": "^7.24.6",
+    "@firebase/rules-unit-testing": "^3.0.3",
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
