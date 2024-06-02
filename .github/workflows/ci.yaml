@@ -9,8 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo " The job was automatically triggered by a ${{ github.event_name }} event."
-      - name: Install PICO SDK Dependencies
-        run: sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
