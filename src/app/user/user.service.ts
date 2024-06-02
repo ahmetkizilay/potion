@@ -28,7 +28,6 @@ export class UserService implements OnDestroy {
  }
 
   async login(email: string, password: string): Promise<boolean> {
-    console.log(`Signing in: ${email}`);
     try {
       await signInWithEmailAndPassword(this.auth, email, password);
       return true;
@@ -38,7 +37,6 @@ export class UserService implements OnDestroy {
   }
 
   async logout(): Promise<void> {
-    console.log('Signing out');
     await signOut(this.auth);
   }
 }
