@@ -16,7 +16,6 @@ export class WelcomeService {
     this.morningPageCollection = collection(this.firestore, 'morningPages');
   }
   async save(text: string) {
-    console.log('Saving text:', text);
     try {
       const docReference = await addDoc(this.morningPageCollection, <MorningPage> { text });
       console.log(docReference.id);
