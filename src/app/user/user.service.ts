@@ -33,7 +33,6 @@ export class UserService implements OnDestroy {
       await signInWithEmailAndPassword(this.auth, email, password);
       return true;
     } catch (e) {
-      console.error(e);
       return false;
     }
   }
