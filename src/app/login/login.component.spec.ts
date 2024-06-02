@@ -26,8 +26,11 @@ describe('LoginComponent', () => {
   it('should call login method', () => {
     const fixture = TestBed.createComponent(LoginComponent);
     const component = fixture.componentInstance;
-    component.loginForm.value.email = 'email';
-    component.loginForm.value.password = 'password';
+
+    component.loginForm.controls.email.setValue('email');
+    component.loginForm.controls.password.setValue('password');
+
+    fixture.detectChanges();
 
     const formSubmit = fixture.debugElement.query(By.css('form'));
     formSubmit.triggerEventHandler('submit');
