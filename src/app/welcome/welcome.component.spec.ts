@@ -7,6 +7,7 @@ import { WelcomeService } from './welcome.service';
 
 class MockUserService {
   user$: Observable<any | null> = of(null);
+  isSignedIn$: Observable<boolean> = of(false);
   logout() { }
 }
 class MockWelcomeService {
