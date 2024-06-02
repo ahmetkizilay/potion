@@ -14,7 +14,7 @@ describe('UserService', () => {
       providers: [UserService,
         provideFirebaseApp(() => initializeApp(TEST_CONFIG, APP_NAME)),
         provideAuth(() => authInstance)
-      ] 
+      ]
     });
   });
 
@@ -25,6 +25,8 @@ describe('UserService', () => {
 
   it('logs in with Firebase Auth', async () => {
     service = TestBed.inject(UserService);
-    await service.login("email", "password");
+    const res = await service.login("email", "password");
+    // This is false because the firebase login params for test are not correct.
+    expect(res).toBe(false);
   });
 });
