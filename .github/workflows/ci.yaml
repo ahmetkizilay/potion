@@ -21,6 +21,8 @@ jobs:
           node-version: 'lts/iron'
       - name: Install dependencies
         run: npm install
+      - name: Install Firebase Tools
+        run: npm install firebase-tools
       - name: Test Firestore Rules
         run: npm run test:firestore-rules
       - name: Run Tests
