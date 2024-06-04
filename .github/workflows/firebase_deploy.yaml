@@ -22,7 +22,7 @@ jobs:
       - name: Load Google Application Credentials
         run: echo ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }} > /tmp/credentials.json
       - name: Deploy Firestore rules
-      - run: GOOGLE_APPLICATION_CREDENTIALS=/tmp/credentials.json firebase deploy --only firestore:rules
+        run: GOOGLE_APPLICATION_CREDENTIALS=/tmp/credentials.json firebase deploy --only firestore:rules
       - name: Remove Google Application Credentials
         run: rm /tmp/credentials.json
 
