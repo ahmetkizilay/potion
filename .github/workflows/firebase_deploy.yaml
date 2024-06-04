@@ -23,6 +23,8 @@ jobs:
         run: |
           echo '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}' > /tmp/credentials.json
           export GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json"
+      - name: Check if the Google Application Credentials are loaded
+        run: npm run deploy:check-credentials
       - name: Deploy Firestore rules
         run: npm run deploy:firestore-rules
       - name: Remove Google Application Credentials
