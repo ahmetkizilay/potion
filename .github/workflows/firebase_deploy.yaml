@@ -20,9 +20,11 @@ jobs:
       - name: Install Firebase Tools
         run: npm install firebase-tools
       - name: Load Google Application Credentials
-        run: echo ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }} > /tmp/credentials.json
+        run: |
+          echo ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }} > /tmp/credentials.json
+          export GOOGLE_APPLICATION_CREDENTIALS="/tmp/credentials.json"
       - name: Deploy Firestore rules
-        run: GOOGLE_APPLICATION_CREDENTIALS=/tmp/credentials.json firebase deploy --only firestore:rules
+        run: npm run deploy:firestore-rules
       - name: Remove Google Application Credentials
         run: rm /tmp/credentials.json
 
