@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:potion": "node dist/potion/server/server.mjs",
-    "deploy:firestore-rules": "firebase deploy --only firestore:rules",
+    "deploy:firestore-rules": "GOOGLE_APPLICATION_CREDENTIALS=\"/tmp/credentials.json\" firebase deploy --only firestore:rules",
     "test:firestore-rules": "firebase emulators:exec --only firestore \"jest --forceExit firestore/rules.spec.ts\""
   },
   "private": true,
