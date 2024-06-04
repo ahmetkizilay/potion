@@ -1,0 +1,29 @@
+name: CI
+run-name: Deploying to Firebase
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo " The job was automatically triggered by a ${{ github.event_name }} event."
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/iron'
+      - name: Install Firebase Tools
+        run: npm install firebase-tools
+      - name: Load Google Application Credentials
+        run: echo ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }} > /tmp/credentials.json
+      - name: Deploy Firestore rules
+      - run: GOOGLE_APPLICATION_CREDENTIALS=/tmp/credentials.json firebase deploy --only firestore:rules
+      - name: Remove Google Application Credentials
+        run: rm /tmp/credentials.json
+
+
