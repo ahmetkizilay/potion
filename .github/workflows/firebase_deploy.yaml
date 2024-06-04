@@ -1,5 +1,5 @@
-name: CI
-run-name: Deploying to Firebase
+name: Firebase Deploy
+run-name: ${{ github.actor }} triggered Firebase deploy.
 on:
   push:
     branches:
