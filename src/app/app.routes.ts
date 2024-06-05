@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
-import { WelcomeComponent } from './welcome/welcome.component';
+import { DailyComponent } from './daily/daily.component';
 import { requireLogin } from './user/auth.guard';
 
 export const routes: Routes = [
@@ -16,7 +16,7 @@ export const routes: Routes = [
 	},
 	{
 		path: '',
-		component: WelcomeComponent,
+		component: DailyComponent,
 		canActivate: [requireLogin],
 	},
 ];

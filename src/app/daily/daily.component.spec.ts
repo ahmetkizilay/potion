@@ -1,43 +1,43 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
-import { WelcomeComponent } from './welcome.component';
+import { DailyComponent } from './daily.component';
 import { UserService } from '../user/user.service';
 import { Observable, of } from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { WelcomeService } from './welcome.service';
+import { DailyService } from './daily.service';
 
 class MockUserService {
   user$: Observable<any | null> = of(null);
   isSignedIn$: Observable<boolean> = of(false);
   logout() { }
 }
-class MockWelcomeService {
+class MockDailyService {
   save(_: string) { }
 }
 
-describe('WelcomeComponent', () => {
+describe('DailyComponent', () => {
   let userService: MockUserService;
-  let welcomeService: MockWelcomeService;
+  let dailyService: MockDailyService;
   beforeEach(waitForAsync(() => {
     userService = new MockUserService();
-    welcomeService = new MockWelcomeService();
+    dailyService = new MockDailyService();
     TestBed.configureTestingModule({
-      imports: [WelcomeComponent],
+      imports: [DailyComponent],
       providers: [
         { provide: UserService, useValue: userService },
-        { provide: WelcomeService, useValue: welcomeService },
+        { provide: DailyService, useValue: dailyService },
       ],
     }).compileComponents();
   }));
 
   it('renders the component', () => {
-    const fixture = TestBed.createComponent(WelcomeComponent);
+    const fixture = TestBed.createComponent(DailyComponent);
     const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 
   it('displays the user email', () => {
     userService.user$ = of({ email: 'email' });
-    const fixture = TestBed.createComponent(WelcomeComponent);
+    const fixture = TestBed.createComponent(DailyComponent);
     const component = fixture.componentInstance;
     component.username$.subscribe(username => {
       expect(username).toBe('email');
@@ -46,7 +46,7 @@ describe('WelcomeComponent', () => {
 
   it('displays the null user', () => {
     userService.user$ = of(null);
-    const fixture = TestBed.createComponent(WelcomeComponent);
+    const fixture = TestBed.createComponent(DailyComponent);
     const component = fixture.componentInstance;
     component.username$.subscribe(username => {
       expect(username).toBe('Anonymous');
@@ -56,7 +56,7 @@ describe('WelcomeComponent', () => {
   it('logs out the user', () => {
     spyOn(userService, 'logout');
 
-    const fixture = TestBed.createComponent(WelcomeComponent);
+    const fixture = TestBed.createComponent(DailyComponent);
     const component = fixture.componentInstance;
 
     const btnLogout = fixture.debugElement.query(By.css('button#btn-logout'));
@@ -66,16 +66,16 @@ describe('WelcomeComponent', () => {
   });
 
   it('contains a textContent element', () => {
-    const fixture = TestBed.createComponent(WelcomeComponent);
+    const fixture = TestBed.createComponent(DailyComponent);
     const component = fixture.componentInstance;
     fixture.detectChanges();
     expect(component.textContainer).toBeTruthy();
   });
 
   it('calls save', () => {
-    spyOn(welcomeService, 'save');
+    spyOn(dailyService, 'save');
 
-    const fixture = TestBed.createComponent(WelcomeComponent);
+    const fixture = TestBed.createComponent(DailyComponent);
     const component = fixture.componentInstance;
 
     fixture.detectChanges();
@@ -84,7 +84,7 @@ describe('WelcomeComponent', () => {
     const btnSave = fixture.debugElement.query(By.css('button#btn-save'));
     btnSave.triggerEventHandler('click', null);
 
-    expect(welcomeService.save).toHaveBeenCalledWith('Lorem ipsum dolor sit amet');
+    expect(dailyService.save).toHaveBeenCalledWith('Lorem ipsum dolor sit amet');
 
   });
 });
