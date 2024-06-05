@@ -3,19 +3,19 @@ import { Observable, filter, first, lastValueFrom, map } from 'rxjs';
 import { UserService } from '../user/user.service';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { WelcomeService } from './welcome.service';
+import { DailyService } from './daily.service';
 
 @Component({
   standalone: true,
-  selector: 'app-welcome',
-  templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.css'],
+  selector: 'app-daily',
+  templateUrl: './daily.component.html',
+  styleUrls: ['./daily.component.css'],
   imports: [AsyncPipe]
 })
-export class WelcomeComponent {
+export class DailyComponent {
 	private router: Router = inject(Router);
   private userService: UserService = inject(UserService);
-  private welcomeService: WelcomeService = inject(WelcomeService);
+  private dailyService: DailyService = inject(DailyService);
   @ViewChild('text') textContainer!: ElementRef<HTMLDivElement>;
 
   username$: Observable<string> = this.userService.user$.pipe(map(user => user?.email ?? 'Anonymous'));
@@ -28,7 +28,7 @@ export class WelcomeComponent {
 
   save() {
     const text = this.textContainer.nativeElement.innerText;
-    this.welcomeService.save(text).then(() => {
+    this.dailyService.save(text).then(() => {
       console.log('Saved text:', text);
     });
   }

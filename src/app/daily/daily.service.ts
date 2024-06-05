@@ -8,7 +8,7 @@ export interface MorningPage {
 @Injectable(
   { providedIn: 'root' }
 )
-export class WelcomeService {
+export class DailyService {
   private firestore = inject(Firestore);
   morningPageCollection: CollectionReference;
 
