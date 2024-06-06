@@ -10,7 +10,7 @@
     "serve:ssr:potion": "node dist/potion/server/server.mjs",
     "deploy:firestore-rules": "firebase deploy --only firestore:rules",
     "test:firestore-rules": "firebase emulators:exec --only firestore \"jest --forceExit firestore/rules.spec.ts\"",
-    "e2e": "firebase emulators:exec \"ng e2e\" --import=\"./e2e/emulator-data/\""
+    "e2e": "firebase emulators:exec \"ng e2e -- --verbose\" --import=\"./e2e/emulator-data/\""
   },
   "private": true,
   "dependencies": {
