@@ -37,4 +37,26 @@ describe('LoginComponent', () => {
 
     expect(loginSpy).toHaveBeenCalledOnceWith('email', 'password');
   });
+
+  it('should display error message', async () => {
+    const fixture = TestBed.createComponent(LoginComponent);
+    const component = fixture.componentInstance;
+
+    component.loginForm.controls.email.setValue('email');
+    component.loginForm.controls.password.setValue('password');
+
+    loginSpy.and.returnValue(Promise.resolve(false));
+
+    fixture.detectChanges();
+
+    const formSubmit = fixture.debugElement.query(By.css('form'));
+    formSubmit.triggerEventHandler('submit');
+
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const errorMessage = fixture.debugElement.query(By.css('label#login-error'));
+    expect(errorMessage.nativeElement.textContent).toContain('Invalid email or password');
+
+  });
 });
