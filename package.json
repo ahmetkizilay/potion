@@ -9,7 +9,8 @@
     "test": "ng test",
     "serve:ssr:potion": "node dist/potion/server/server.mjs",
     "deploy:firestore-rules": "firebase deploy --only firestore:rules",
-    "test:firestore-rules": "firebase emulators:exec --only firestore \"jest --forceExit firestore/rules.spec.ts\""
+    "test:firestore-rules": "firebase emulators:exec --only firestore \"jest --forceExit firestore/rules.spec.ts\"",
+    "e2e": "firebase emulators:exec \"ng e2e\" --import=\"./e2e/emulator-data/\""
   },
   "private": true,
   "dependencies": {
@@ -36,6 +37,7 @@
     "@babel/preset-env": "^7.24.6",
     "@babel/preset-typescript": "^7.24.6",
     "@firebase/rules-unit-testing": "^3.0.3",
+    "@puppeteer/ng-schematics": "^0.6.0",
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
@@ -45,6 +47,8 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.4.2"
+    "typescript": "~5.4.2",
+    "puppeteer": "22.10.0",
+    "jasmine": "5.1.0"
   }
 }
