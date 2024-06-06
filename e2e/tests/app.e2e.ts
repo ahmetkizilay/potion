@@ -1,8 +1,14 @@
 
+import { before } from 'node:test';
 import {setupBrowserHooks, getBrowserState} from './utils';
 
 describe('App test', function () {
   setupBrowserHooks();
+
+  beforeEach(async function () {
+    // wait 1 second before each test
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  });
 
   it('signs in a registered user', async function () {
     const {page} = getBrowserState();
@@ -45,7 +51,7 @@ describe('App test', function () {
     console.log('after click');
 
     // Waiting for the error message to appear on the page.
-    const text = await page.locator('//label[text(), "Invalid email or password"').wait();
-    expect(text).not.toBeNull();
+    const error = await page.locator('#login-error').wait();
+    expect(error).not.toBeNull();
   });
 });
