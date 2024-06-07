@@ -1,8 +1,9 @@
 import { Injectable, inject } from "@angular/core";
-import { Firestore, addDoc, CollectionReference, collection } from '@angular/fire/firestore';
+import { Firestore, addDoc, CollectionReference, collection, updateDoc } from '@angular/fire/firestore';
 
 export interface Daily {
   text: string;
+  title: string;
 }
 
 @Injectable(
@@ -15,9 +16,9 @@ export class DailyService {
   constructor() {
     this.dailyCollection = collection(this.firestore, 'dailies');
   }
-  async save(text: string) {
+  async save(text: string, title: string) {
     try {
-      const docReference = await addDoc(this.dailyCollection, <Daily> { text });
+      const docReference = await addDoc(this.dailyCollection, <Daily> { text, title });
       console.log(docReference.id);
     } catch (e) {
       console.error('Error saving text:', e);
