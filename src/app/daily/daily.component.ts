@@ -19,6 +19,11 @@ export class DailyComponent {
   @ViewChild('text') textContainer!: ElementRef<HTMLDivElement>;
 
   username$: Observable<string> = this.userService.user$.pipe(map(user => user?.email ?? 'Anonymous'));
+  readonly title: string;
+
+  constructor() {
+    this.title = this.today();
+  }
 
   async logout() {
     await this.userService.logout();
@@ -28,8 +33,17 @@ export class DailyComponent {
 
   save() {
     const text = this.textContainer.nativeElement.innerText;
-    this.dailyService.save(text).then(() => {
+    this.dailyService.save(text, this.title).then(() => {
       console.log('Saved text:', text);
     });
+  }
+
+  private today(): string{
+    let currentDate = new Date();
+    let year = currentDate.getFullYear();
+    let month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based in JS
+    let day = currentDate.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
 }

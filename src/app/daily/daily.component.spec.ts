@@ -11,12 +11,13 @@ class MockUserService {
   logout() { }
 }
 class MockDailyService {
-  save(_: string) { }
+  save(_content: string, _title: string) { }
 }
 
 describe('DailyComponent', () => {
   let userService: MockUserService;
   let dailyService: MockDailyService;
+
   beforeEach(waitForAsync(() => {
     userService = new MockUserService();
     dailyService = new MockDailyService();
@@ -28,6 +29,10 @@ describe('DailyComponent', () => {
       ],
     }).compileComponents();
   }));
+
+  afterEach(() => {
+    jasmine.clock().uninstall();
+  });
 
   it('renders the component', () => {
     const fixture = TestBed.createComponent(DailyComponent);
@@ -57,7 +62,6 @@ describe('DailyComponent', () => {
     spyOn(userService, 'logout');
 
     const fixture = TestBed.createComponent(DailyComponent);
-    const component = fixture.componentInstance;
 
     const btnLogout = fixture.debugElement.query(By.css('button#btn-logout'));
     btnLogout.triggerEventHandler('click', null);
@@ -73,18 +77,25 @@ describe('DailyComponent', () => {
   });
 
   it('calls save', () => {
+    jasmine.clock().install();
+    const mockCurrentDate = new Date(2023, 2, 2); // Note: JavaScript Date object's month is 0-indexed
+    jasmine.clock().mockDate(mockCurrentDate);
+
     spyOn(dailyService, 'save');
 
     const fixture = TestBed.createComponent(DailyComponent);
     const component = fixture.componentInstance;
 
+    const content = 'Lorem ipsum dolor sit amet';
+    const title = '2023-03-02';
     fixture.detectChanges();
-    component.textContainer.nativeElement.innerText = 'Lorem ipsum dolor sit amet';
+    component.textContainer.nativeElement.innerText = content;
 
     const btnSave = fixture.debugElement.query(By.css('button#btn-save'));
     btnSave.triggerEventHandler('click', null);
 
-    expect(dailyService.save).toHaveBeenCalledWith('Lorem ipsum dolor sit amet');
+    expect(dailyService.save).toHaveBeenCalledWith(content, title);
 
+    jasmine.clock().uninstall();
   });
 });
