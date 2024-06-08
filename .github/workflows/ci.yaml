@@ -26,7 +26,7 @@ jobs:
       - name: Test Firestore Rules
         run: npm run test:firestore-rules
       - name: Run Tests
-        run: npm test -- --configuration=ci
+        run: npm run test:ci
       - name: Run e2e tests
         run: npm run e2e
       - name: Build
