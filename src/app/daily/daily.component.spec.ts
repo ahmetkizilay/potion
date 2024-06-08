@@ -11,7 +11,9 @@ class MockUserService {
   logout() { }
 }
 class MockDailyService {
-  save(_content: string, _title: string) { }
+  save(_content: string, _title: string): Promise<boolean> {
+    return Promise.resolve(false);
+  }
 }
 
 describe('DailyComponent', () => {
@@ -97,5 +99,48 @@ describe('DailyComponent', () => {
     expect(dailyService.save).toHaveBeenCalledWith(content, title);
 
     jasmine.clock().uninstall();
+  });
+
+  it('notifies for successful save', async() => {
+    spyOn(dailyService, 'save').and.returnValue(Promise.resolve(true));
+    const fixture = TestBed.createComponent(DailyComponent);
+    const component = fixture.componentInstance;
+
+    const content = 'Lorem ipsum dolor sit amet';
+    fixture.detectChanges();
+    component.textContainer.nativeElement.innerText = content;
+
+    const btnSave = fixture.debugElement.query(By.css('button#btn-save'));
+    btnSave.triggerEventHandler('click', null);
+
+    expect(dailyService.save).toHaveBeenCalled();
+
+    await fixture.whenStable();
+
+    const notifySaved = component.notifySaved.nativeElement;
+    expect(notifySaved.classList).toContain('highlighted');
+    expect(notifySaved.classList).toContain('success');
+  });
+
+  it('notifies for failing save', async () => {
+    spyOn(dailyService, 'save').and.returnValue(Promise.resolve(false));
+    const fixture = TestBed.createComponent(DailyComponent);
+    const component = fixture.componentInstance;
+
+
+    const content = 'Lorem ipsum dolor sit amet';
+    fixture.detectChanges();
+    component.textContainer.nativeElement.innerText = content;
+
+    const btnSave = fixture.debugElement.query(By.css('button#btn-save'));
+    btnSave.triggerEventHandler('click', null);
+
+    expect(dailyService.save).toHaveBeenCalled();
+
+    await fixture.whenStable();
+
+    const notifySaved = component.notifySaved.nativeElement;
+    expect(notifySaved.classList).toContain('highlighted');
+    expect(notifySaved.classList).toContain('error');
   });
 });

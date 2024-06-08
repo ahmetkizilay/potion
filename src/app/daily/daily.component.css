@@ -34,3 +34,29 @@ div.user-content {
 
     background-color: #f5e1e1;
 }
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+label.save-notify {
+  margin-left: 8px;
+  font-size: 0.8rem;
+}
+
+.hidden {
+  display: none;
+}
+.success {
+  color: green;
+}
+.error {
+  color: red;
+}
+.highlighted {
+  display: inline-block;
+  animation-name: fadeOut;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+}
