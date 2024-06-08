@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { FirebaseApp, getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { Firestore, collection, connectFirestoreEmulator, deleteDoc, disableNetwork, getDocs, getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { getAuth, provideAuth, connectAuthEmulator, Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, User, deleteUser, signOut } from '@angular/fire/auth';
+import { Firestore, connectFirestoreEmulator, disableNetwork, getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getAuth, provideAuth, connectAuthEmulator, Auth, createUserWithEmailAndPassword, User, deleteUser, signOut } from '@angular/fire/auth';
 import { environment } from '../../environments/environment';
 import { DailyService } from './daily.service';
 

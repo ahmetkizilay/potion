@@ -1,14 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { UserService } from './user.service';
-import { provideAuth, getAuth, connectAuthEmulator, Auth, User, user as observeUser, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { provideAuth, getAuth, connectAuthEmulator, Auth, User, createUserWithEmailAndPassword } from '@angular/fire/auth';
 import { initializeApp, getApp, provideFirebaseApp, FirebaseApp } from '@angular/fire/app';
 
 import { environment } from '../../environments/environment';
 import { deleteUser, signOut } from '@firebase/auth';
 import { filter, firstValueFrom, take } from 'rxjs';
-
-const APP_NAME = 'testApp';
-const TEST_CONFIG = {};
 
 describe('UserService', () => {
   let app: FirebaseApp;

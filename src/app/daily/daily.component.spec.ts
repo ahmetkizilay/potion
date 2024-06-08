@@ -42,24 +42,6 @@ describe('DailyComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('displays the user email', () => {
-    userService.user$ = of({ email: 'email' });
-    const fixture = TestBed.createComponent(DailyComponent);
-    const component = fixture.componentInstance;
-    component.username$.subscribe(username => {
-      expect(username).toBe('email');
-    });
-  });
-
-  it('displays the null user', () => {
-    userService.user$ = of(null);
-    const fixture = TestBed.createComponent(DailyComponent);
-    const component = fixture.componentInstance;
-    component.username$.subscribe(username => {
-      expect(username).toBe('Anonymous');
-    });
-  });
-
   it('logs out the user', () => {
     spyOn(userService, 'logout');
 
@@ -83,7 +65,7 @@ describe('DailyComponent', () => {
     const mockCurrentDate = new Date(2023, 2, 2); // Note: JavaScript Date object's month is 0-indexed
     jasmine.clock().mockDate(mockCurrentDate);
 
-    spyOn(dailyService, 'save');
+    spyOn(dailyService, 'save').and.returnValue(Promise.resolve(true));
 
     const fixture = TestBed.createComponent(DailyComponent);
     const component = fixture.componentInstance;

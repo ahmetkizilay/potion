@@ -1,5 +1,5 @@
 import { Injectable, inject } from "@angular/core";
-import { Firestore, addDoc, CollectionReference, collection, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, CollectionReference, collection } from '@angular/fire/firestore';
 
 export interface Daily {
   text: string;
