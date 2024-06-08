@@ -19,7 +19,6 @@ export class DailyComponent {
   @ViewChild('text') textContainer!: ElementRef<HTMLDivElement>;
   @ViewChild('notifySaved') notifySaved!: ElementRef<HTMLLabelElement>;
 
-  username$: Observable<string> = this.userService.user$.pipe(map(user => user?.email ?? 'Anonymous'));
   readonly title: string;
   saveMessage = 'Saved';
 
