@@ -16,12 +16,14 @@ export class DailyService {
   constructor() {
     this.dailyCollection = collection(this.firestore, 'dailies');
   }
-  async save(text: string, title: string) {
+  async save(text: string, title: string): Promise<boolean> {
     try {
       const docReference = await addDoc(this.dailyCollection, <Daily> { text, title });
       console.log(docReference.id);
+      return true;
     } catch (e) {
       console.error('Error saving text:', e);
+      return false;
     }
   }
 }

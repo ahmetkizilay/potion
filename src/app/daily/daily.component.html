@@ -2,6 +2,7 @@
   <div class="header">
     <div>
       {{title}} <button id="btn-save" (click)="save()">Save</button>
+      <label #notifySaved class="save-notify hidden">{{saveMessage}}</label>
     </div>
     <button id="btn-logout" (click)="logout()">Logout</button>
   </div>
