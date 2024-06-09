@@ -22,7 +22,7 @@ jobs:
       - name: Install and build dependencies
         run: |
           npm ci
-          npm run install:functions
+          npm run ci:functions
           npm run build:functions
           npm install firebase-tools
       - name: Test Firestore rules
