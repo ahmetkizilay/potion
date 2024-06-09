@@ -59,8 +59,7 @@ describe('Firestore rules', () => {
   it('reject write if unauthenticated', async () => {
     let unauthedDb = testEnv.unauthenticatedContext().firestore();
     const dailiesRef = collection(unauthedDb, 'dailies');
-    const err = await assertFails(addDoc(dailiesRef, { text: 'hello' }));
-    expect(err.code).toBe('permission-denied' || 'PERMISSION_DENIED');
+    await expectPermissionDenied(addDoc(dailiesRef, { text: 'hello' }));
   });
 
   it('allow write if authenticated', async () => {
