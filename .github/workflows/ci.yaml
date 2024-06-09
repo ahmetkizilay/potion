@@ -28,7 +28,9 @@ jobs:
       - name: Test Firestore rules
         run: npm run test:firestore-rules
       - name: Test Firebase Functions
-        run: npm run test:functions
+        run: |
+          npm run lint:functions
+          npm run test:functions
       - name: Run unit tests
         run: npm run test:ci
       - name: Run e2e tests
