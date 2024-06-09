@@ -15,6 +15,7 @@
     "ci:functions": "npm --prefix functions ci",
     "install:functions": "npm --prefix functions install",
     "build:functions": "npm --prefix functions run build",
+    "lint:functions": "npm --prefix functions run lint",
     "test:functions": "firebase emulators:exec \"npm --prefix functions test\"",
     "deploy:functions": "firebase deploy --only functions"
   },
