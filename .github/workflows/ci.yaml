@@ -19,19 +19,18 @@ jobs:
           node-version: 'lts/iron'
           cache: 'npm'
           cache-dependency-path: package-lock.json
-      - name: Install dependencies
-        run: npm ci
-      - name: Install Firebase Tools
-        run: npm install firebase-tools
-      - name: Run unit tests
-        run: npm run test:ci
+      - name: Install and build dependencies
+        run: |
+          npm ci
+          npm run install:functions
+          npm run build:functions
+          npm install firebase-tools
       - name: Test Firestore rules
         run: npm run test:firestore-rules
       - name: Test Firebase Functions
-        run: |
-          npm run install:functions
-          npm run build:functions
-          npm run test:functions
+        run: npm run test:functions
+      - name: Run unit tests
+        run: npm run test:ci
       - name: Run e2e tests
         run: npm run e2e
       - name: Build
