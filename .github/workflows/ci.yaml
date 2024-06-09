@@ -23,10 +23,15 @@ jobs:
         run: npm ci
       - name: Install Firebase Tools
         run: npm install firebase-tools
-      - name: Test Firestore Rules
-        run: npm run test:firestore-rules
-      - name: Run Tests
+      - name: Run unit tests
         run: npm run test:ci
+      - name: Test Firestore rules
+        run: npm run test:firestore-rules
+      - name: Test Firebase Functions
+        run: |
+          npm run install:functions
+          npm run build:functions
+          npm run test:functions
       - name: Run e2e tests
         run: npm run e2e
       - name: Build

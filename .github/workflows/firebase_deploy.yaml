@@ -26,6 +26,10 @@ jobs:
         run: npm run deploy:firestore-rules
         env:
           GOOGLE_APPLICATION_CREDENTIALS: /tmp/credentials.json
+      - name: Deploy Firebase Functions
+        run: npm run deploy:functions
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: /tmp/credentials.json
       - name: Remove Google Application Credentials
         run: rm /tmp/credentials.json
 

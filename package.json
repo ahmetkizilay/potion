@@ -14,7 +14,8 @@
     "e2e": "firebase emulators:exec \"ng e2e\" --import=\"./e2e/emulator-data/\"",
     "install:functions": "npm --prefix functions install",
     "build:functions": "npm --prefix functions run build",
-    "test:functions:emu": "firebase emulators:exec \"npm --prefix functions test\""
+    "test:functions": "firebase emulators:exec \"npm --prefix functions test\"",
+    "deploy:functions": "firebase deploy --only functions"
   },
   "private": true,
   "dependencies": {
