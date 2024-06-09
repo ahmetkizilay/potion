@@ -5,8 +5,12 @@ import {
   assertFails,
   RulesTestEnvironment,
 } from '@firebase/rules-unit-testing';
-import { addDoc, collection, setLogLevel } from 'firebase/firestore';
+import { addDoc, setDoc, collection, setLogLevel, doc } from 'firebase/firestore';
 
+async function expectPermissionDenied(operation: Promise<any>) {
+  const err = await assertFails(operation);
+  expect(err.code).toBe('permission-denied' || 'PERMISSION_DENIED');
+}
 
 let testEnv: RulesTestEnvironment;
 
@@ -30,6 +34,27 @@ describe('Firestore rules', () => {
   it('sanity check', () => {
     expect(true).toBe(true);
   });
+
+  describe('users collection', () => {
+    it ('reject write if not authenticated', async() => {
+      let unauthedDb = testEnv.unauthenticatedContext().firestore();
+      const docRef = doc(unauthedDb, 'users', 'user');
+      await expectPermissionDenied(setDoc(docRef, { }));
+    });
+
+    it('reject write if authenticated with the wrong user', async () => {
+      let authedDb = testEnv.authenticatedContext('currentUser').firestore();
+      const docRef = doc(authedDb, 'users', 'anotherUser');
+      await expectPermissionDenied(setDoc(docRef, { }));
+    });
+
+    it('allow write if authenticated with the correct user', async () => {
+      let authedDb = testEnv.authenticatedContext('currentUser').firestore();
+      const docRef = doc(authedDb, 'users', 'currentUser');
+      await assertSucceeds(setDoc(docRef, { }));
+    });
+  })
+
 
   it('reject write if unauthenticated', async () => {
     let unauthedDb = testEnv.unauthenticatedContext().firestore();
