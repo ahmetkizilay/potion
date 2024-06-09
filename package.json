@@ -12,6 +12,7 @@
     "deploy:firestore-rules": "firebase deploy --only firestore:rules",
     "test:firestore-rules": "firebase emulators:exec --only firestore \"jest --forceExit firestore/rules.spec.ts\"",
     "e2e": "firebase emulators:exec \"ng e2e\" --import=\"./e2e/emulator-data/\"",
+    "ci:functions": "npm --prefix functions ci",
     "install:functions": "npm --prefix functions install",
     "build:functions": "npm --prefix functions run build",
     "test:functions": "firebase emulators:exec \"npm --prefix functions test\"",

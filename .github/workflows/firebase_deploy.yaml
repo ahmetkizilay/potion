@@ -28,7 +28,7 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: /tmp/credentials.json
       - name: Deploy Firebase Functions
         run: |
-          npm run install:functions
+          npm run ci:functions
           npm run build:functions
           npm run test:functions
           npm run deploy:functions
