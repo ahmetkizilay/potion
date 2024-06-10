@@ -4,13 +4,8 @@ import { connectAuthEmulator, getAuth, createUserWithEmailAndPassword, Auth } fr
 import { connectFirestoreEmulator, doc, getDoc, Firestore, getFirestore } from 'firebase/firestore';
 
 const APP_CONFIG = {
-  'projectId': '',
-  'appId': '',
-  'storageBucket': '',
-  'apiKey': '',
-  'authDomain': '',
-  'messagingSenderId': '',
-  'measurementId': '',
+  'apiKey': 'AIzaSyAWqj_zYk5aKnhcAG2n_eoL_7dpJZLnxQY',
+  'projectId': 'potion-bce28',
 };
 
 describe('Firebase Functions', () => {
