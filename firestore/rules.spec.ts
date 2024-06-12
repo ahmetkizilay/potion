@@ -67,7 +67,45 @@ describe('Firestore rules', () => {
       const docRef = doc(authedDb, 'users', 'currentUser');
       await assertSucceeds(getDoc(docRef));
     });
-  })
+  });
+
+  describe('dailies subcollection', () => {
+    it ('reject write if not authenticated', async() => {
+      let unauthedDb = testEnv.unauthenticatedContext().firestore();
+      const docRef = doc(unauthedDb, 'users', 'user', 'dailies', 'title');
+      await expectPermissionDenied(setDoc(docRef, { }));
+    });
+
+    it('reject write if authenticated with the wrong user', async () => {
+      let authedDb = testEnv.authenticatedContext('currentUser').firestore();
+      const docRef = doc(authedDb, 'users', 'anotherUser', 'dailies', 'title');
+      await expectPermissionDenied(setDoc(docRef, { }));
+    });
+
+    it('allow write if authenticated with the correct user', async () => {
+      let authedDb = testEnv.authenticatedContext('currentUser').firestore();
+      const docRef = doc(authedDb, 'users', 'currentUser', 'dailies', 'title');
+      await assertSucceeds(setDoc(docRef, { }));
+    });
+
+    it('reject read if not authenticated', async () => {
+      let unauthedDb = testEnv.unauthenticatedContext().firestore();
+      const docRef = doc(unauthedDb, 'users', 'user', 'dailies', 'title');
+      await expectPermissionDenied(getDoc(docRef));
+    });
+
+    it('reject read if authenticated with the wrong user', async () => {
+      let authedDb = testEnv.authenticatedContext('currentUser').firestore();
+      const docRef = doc(authedDb, 'users', 'anotherUser', 'dailies', 'title');
+      await expectPermissionDenied(getDoc(docRef));
+    });
+
+    it('allow read if authenticated with the correct user', async () => {
+      let authedDb = testEnv.authenticatedContext('currentUser').firestore();
+      const docRef = doc(authedDb, 'users', 'currentUser', 'dailies', 'title');
+      await assertSucceeds(getDoc(docRef));
+    });
+  });
 
   describe('dailies collection', () => {
     it('reject write if unauthenticated', async () => {
