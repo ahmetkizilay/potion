@@ -3,7 +3,7 @@ import { Observable, filter, first, lastValueFrom, map } from 'rxjs';
 import { UserService } from '../user/user.service';
 import { AsyncPipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { DailyService } from './daily.service';
+import { Daily, DailyService } from './daily.service';
 
 @Component({
   standalone: true,
@@ -33,8 +33,8 @@ export class DailyComponent {
   }
 
   save() {
-    const text = this.textContainer.nativeElement.innerText;
-    this.dailyService.save(text, this.title).then((result) => {
+    let daily: Daily = { text: this.textContainer.nativeElement.innerText, title: this.title, };
+    this.dailyService.save(daily).then((result) => {
       this.triggerSaved(result);
     });
   }
