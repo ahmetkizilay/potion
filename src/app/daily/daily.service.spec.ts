@@ -1,9 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { FirebaseApp, getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { Firestore, connectFirestoreEmulator, disableNetwork, getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { getAuth, provideAuth, connectAuthEmulator, Auth, createUserWithEmailAndPassword, User, deleteUser, signOut } from '@angular/fire/auth';
+import { getAuth, provideAuth, connectAuthEmulator, Auth, createUserWithEmailAndPassword, User, deleteUser, signOut, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { environment } from '../../environments/environment';
-import { DailyService } from './daily.service';
+import { Daily, DailyService } from './daily.service';
+import { UserService } from '../user/user.service';
+import { filter, firstValueFrom } from 'rxjs';
 
 describe('DailyService', () => {
   let app: FirebaseApp;
@@ -18,6 +20,7 @@ describe('DailyService', () => {
     TestBed.configureTestingModule({
       providers: [
         DailyService,
+        UserService,
         provideFirebaseApp(() => initializeApp(environment.firebase.config, appName)),
         provideFirestore(() => {
           providedFirestore = getFirestore(getApp(appName));
@@ -55,10 +58,18 @@ describe('DailyService', () => {
     const email = `u-${Date.now()}@test.com`;
     const password = 'password';
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    await signInWithEmailAndPassword(auth, email, password);
     currentUser = userCredential.user;
 
+    const userService = TestBed.inject(UserService);
+    // Wait for userService to emit the user
+    await firstValueFrom(userService.user$.pipe(filter(u => u !== null)));
+
     const service = TestBed.inject(DailyService);
-    const result = await service.save('text', 'title');
+
+    const daily: Daily = { text: 'text', title: 'title' };
+
+    const result = await service.save(daily);
     expect(result).toBe(true);
   });
 
@@ -66,7 +77,9 @@ describe('DailyService', () => {
     await signOut(auth);
 
     const service = TestBed.inject(DailyService);
-    const result = await service.save('text', 'title');
-    expect(result).toBe(false);
+    service.waitTimeForUser = 0;
+
+    const daily: Daily = { text: 'text', title: 'title' };
+    await expectAsync(service.save(daily)).toBeRejected();
   });
 });

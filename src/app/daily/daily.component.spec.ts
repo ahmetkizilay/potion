@@ -3,7 +3,7 @@ import { DailyComponent } from './daily.component';
 import { UserService } from '../user/user.service';
 import { Observable, of } from 'rxjs';
 import { By } from '@angular/platform-browser';
-import { DailyService } from './daily.service';
+import { Daily, DailyService } from './daily.service';
 
 class MockUserService {
   user$: Observable<any | null> = of(null);
@@ -11,7 +11,7 @@ class MockUserService {
   logout() { }
 }
 class MockDailyService {
-  save(_content: string, _title: string): Promise<boolean> {
+  save(_daily: Daily): Promise<boolean> {
     return Promise.resolve(false);
   }
 }
@@ -72,13 +72,14 @@ describe('DailyComponent', () => {
 
     const content = 'Lorem ipsum dolor sit amet';
     const title = '2023-03-02';
+
     fixture.detectChanges();
     component.textContainer.nativeElement.innerText = content;
 
     const btnSave = fixture.debugElement.query(By.css('button#btn-save'));
     btnSave.triggerEventHandler('click', null);
 
-    expect(dailyService.save).toHaveBeenCalledWith(content, title);
+    expect(dailyService.save).toHaveBeenCalledWith({text: content, title});
 
     jasmine.clock().uninstall();
   });
