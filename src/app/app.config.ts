@@ -17,14 +17,13 @@ import {
   initializeAppCheck,
   provideAppCheck,
 } from '@angular/fire/app-check';
-import { env } from 'process';
 
 declare global {
   var FIREBASE_APPCHECK_DEBUG_TOKEN: string|null;
 }
 
 if (environment.name == 'ci' || environment.name == 'development') {
-  FIREBASE_APPCHECK_DEBUG_TOKEN = environment.firebase.appCheckDebugToken;
+  global.FIREBASE_APPCHECK_DEBUG_TOKEN = environment.firebase.appCheckDebugToken;
 }
 
 export const appConfig: ApplicationConfig = {
