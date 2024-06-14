@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, inject, Renderer2 } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject, Renderer2, OnInit } from '@angular/core';
 import { Observable, filter, first, lastValueFrom, map } from 'rxjs';
 import { UserService } from '../user/user.service';
 import { AsyncPipe } from '@angular/common';
@@ -12,7 +12,7 @@ import { Daily, DailyService } from './daily.service';
   styleUrls: ['./daily.component.css'],
   imports: [AsyncPipe]
 })
-export class DailyComponent {
+export class DailyComponent implements OnInit {
   private router: Router = inject(Router);
   private userService: UserService = inject(UserService);
   private dailyService: DailyService = inject(DailyService);
@@ -21,9 +21,16 @@ export class DailyComponent {
 
   readonly title: string;
   saveMessage = 'Saved';
+  dailyLoaded = false;
 
   constructor(private renderer: Renderer2) {
     this.title = this.today();
+  }
+
+  async ngOnInit() {
+    const daily = await this.dailyService.getOrDefault(this.title);
+    this.textContainer.nativeElement.innerText = daily.text;
+    this.dailyLoaded = true;
   }
 
   async logout() {

@@ -14,6 +14,9 @@ class MockDailyService {
   save(_daily: Daily): Promise<boolean> {
     return Promise.resolve(false);
   }
+  getOrDefault(_title: string): Promise<Daily> {
+    return Promise.resolve({ text: '', title: '' });
+  }
 }
 
 describe('DailyComponent', () => {
@@ -125,5 +128,27 @@ describe('DailyComponent', () => {
     const notifySaved = component.notifySaved.nativeElement;
     expect(notifySaved.classList).toContain('highlighted');
     expect(notifySaved.classList).toContain('error');
+  });
+
+  it('loads the daily', async () => {
+    jasmine.clock().install();
+    const mockCurrentDate = new Date(2023, 2, 2); // Note: JavaScript Date object's month is 0-indexed
+    jasmine.clock().mockDate(mockCurrentDate);
+
+    const daily = { text: 'Lorem ipsum dolor sit amet', title: '2023-03-02' };
+    spyOn(dailyService, 'getOrDefault').and.returnValue(Promise.resolve(daily));
+
+    const fixture = TestBed.createComponent(DailyComponent);
+    const component = fixture.componentInstance;
+    expect(component.dailyLoaded).toBe(false);
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(dailyService.getOrDefault).toHaveBeenCalledWith('2023-03-02');
+    expect(component.textContainer.nativeElement.innerText).toBe(daily.text);
+    expect(component.dailyLoaded).toBe(true);
+
+    jasmine.clock().uninstall();
   });
 });
