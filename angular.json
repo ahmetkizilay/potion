@@ -122,7 +122,13 @@
           },
           "configurations": {
             "production": {
-              "devServerTarget": "potion:serve:production"
+              "devServerTarget": "potion:serve:production",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.ci.ts"
+                }
+              ]
             }
           }
         }
