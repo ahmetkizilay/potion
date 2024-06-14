@@ -21,7 +21,7 @@ jobs:
           cache-dependency-path: package-lock.json
       - name: Set up environment variables
         run: |
-          sed -i 's/__FIREBASE_APP_CHECK_CI_TOKEN__/${{ secrets.FIREBASE_APP_CHECK_CI_TOKEN }}' > src/environments/environment.ci.ts
+          sed -i 's/__FIREBASE_APP_CHECK_CI_TOKEN__/${{ secrets.FIREBASE_APP_CHECK_CI_TOKEN }}/g' > src/environments/environment.ci.ts
       - name: Install and build dependencies
         run: |
           npm ci
