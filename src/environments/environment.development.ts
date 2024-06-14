@@ -1,4 +1,5 @@
 export const environment = {
+  name: 'development',
   production: false,
   firebase: {
     config: {
@@ -15,5 +16,6 @@ export const environment = {
       auth: true,
       firestore: true,
     },
+    appCheckDebugToken: null,
   }
 };
