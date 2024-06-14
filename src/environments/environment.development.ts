@@ -16,6 +16,6 @@ export const environment = {
       auth: true,
       firestore: true,
     },
-    appCheckDebugToken: null,
+    appCheckDebugToken: '__FIREBASE_APP_CHECK_CI_TOKEN__'
   }
 };

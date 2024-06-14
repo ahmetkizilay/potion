@@ -23,7 +23,7 @@ declare global {
   var FIREBASE_APPCHECK_DEBUG_TOKEN: string|null;
 }
 
-if (environment.name == 'ci') {
+if (environment.name == 'ci' || environment.name == 'development') {
   FIREBASE_APPCHECK_DEBUG_TOKEN = environment.firebase.appCheckDebugToken;
 }
 
