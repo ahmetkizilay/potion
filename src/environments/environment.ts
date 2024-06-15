@@ -9,7 +9,7 @@ export const environment = {
       "authDomain": "potion-bce28.firebaseapp.com",
       "messagingSenderId": "91139147310",
       "measurementId": "G-X92K3JKDK1",
-      "recaptchaSiteKey": "6LfEP_gpAAAAABahtqQRf9naBZEAcI12mRK28YW4"
+      "recaptchaSiteKey": "6LeLKfgpAAAAAMikMW1e4zvlVtBzwa1Asze9jNJC"
     },
     emulators: {
       auth: false,
