@@ -19,6 +19,8 @@ jobs:
           node-version: 'lts/iron'
           cache: 'npm'
           cache-dependency-path: package-lock.json
+      - name: Set up App Check CI
+        run: sed -i 's/<!-- __APP_CHECK__ -->/<script>FIREBASE_APPCHECK_DEBUG_TOKEN="${{ secrets.FIREBASE_APP_CHECK_CI_TOKEN }}"<\/script>/g' src/index.html
       - name: Install and build dependencies
         run: |
           npm ci

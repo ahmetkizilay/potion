@@ -29,9 +29,7 @@ describe('DailyService', () => {
         }),
         provideAuth(() => {
           const auth = getAuth(getApp(appName));
-          if (environment.firebase.emulators.auth) {
-            connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
-          }
+          connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
           return auth;
         }),
       ],
