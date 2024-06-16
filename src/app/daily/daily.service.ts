@@ -2,7 +2,6 @@ import { Injectable, OnDestroy, inject } from '@angular/core';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { UserService } from '../user/user.service';
 import {
-  BehaviorSubject,
   ReplaySubject,
   Subject,
   filter,
@@ -30,11 +29,11 @@ export class DailyService implements OnDestroy {
     this.userService.user$.pipe(takeUntil(this.destroy$)).subscribe((user) => {
       if (user) {
         this.userId = user.uid;
-        this.userLoaded$.next(true);
       } else {
         console.error('User not logged in');
         this.userId = null;
       }
+      this.userLoaded$.next(this.userId != null);
     });
   }
 
@@ -99,7 +98,7 @@ export class DailyService implements OnDestroy {
 
   private async waitUntilUserLoaded() {
     await Promise.race([
-      firstValueFrom(this.userLoaded$),
+      firstValueFrom(this.userLoaded$.pipe(filter((loaded) => loaded))),
       new Promise((_resolve, reject) => setTimeout(reject, this.waitTimeForUser)),
     ]);
   }
