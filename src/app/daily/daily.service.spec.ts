@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { FirebaseApp, getApp, initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { Firestore, connectFirestoreEmulator, disableNetwork, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getAuth, provideAuth, connectAuthEmulator, Auth, createUserWithEmailAndPassword, User, deleteUser, signOut, signInWithEmailAndPassword } from '@angular/fire/auth';
@@ -61,7 +61,7 @@ describe('DailyService', () => {
 
     const userService = TestBed.inject(UserService);
     // Wait for userService to emit the user
-    await firstValueFrom(userService.user$.pipe(filter(u => u !== null)));
+    await firstValueFrom(userService.isSignedIn$.pipe(filter(u => !!u)));
 
     const service = TestBed.inject(DailyService);
 
@@ -72,12 +72,18 @@ describe('DailyService', () => {
   });
 
   it('fails to save daily when not authorized', async () => {
+    jasmine.clock().install();
+    // Ensure signed out
     await signOut(auth);
 
     const service = TestBed.inject(DailyService);
-    service.waitTimeForUser = 0;
 
     const daily: Daily = { text: 'text', title: 'title' };
-    await expectAsync(service.save(daily)).toBeRejected();
+    const result = service.save(daily);
+
+    jasmine.clock().tick(2500);
+
+    expectAsync(result).toBeRejected();
+    jasmine.clock().uninstall();
   });
 });
