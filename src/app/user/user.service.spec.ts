@@ -36,7 +36,7 @@ describe('UserService', () => {
     }
   });
 
-  it('logs in with Firebase Auth', async () => {
+  it('logs in and out with Firebase Auth', async () => {
     const email = `u-${Date.now()}@test.com`;
     const password = 'password';
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -52,24 +52,13 @@ describe('UserService', () => {
     // Wiat for a truthy value.
     const signedInPing = await firstValueFrom(service.isSignedIn$.pipe(filter(val => !!val)));
     expect(signedInPing).toBeTrue();
-  });
-
-  it ('logs out with Firebase Auth', async () => {
-    const email = `u-${Date.now()}@test.com`;
-    const password = 'password';
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    expect(userCredential.user).toBeTruthy();
-
-    // Store the user reference to clean up later.
-    currentUser = userCredential.user;
-
-    let service = TestBed.inject(UserService);
-    const signedInPing = await firstValueFrom(service.isSignedIn$);
-    expect(signedInPing).toBeTrue();
+    expect(service.user).toEqual({ userId: currentUser.uid });
 
     await service.logout();
     // Wait for a falsy value.
     const signedOutPing = await firstValueFrom(service.isSignedIn$.pipe(filter(val => !val)));
     expect(signedOutPing).toBeFalse();
+    expect(service.user).toBeNull();
   });
+
 });
