@@ -37,5 +37,8 @@ jobs:
         run: npm run test:ci
       - name: Run e2e tests
         run: npm run e2e
+      - name: Cleanup App Check CI
+        if: ${{ !cancelled() }}
+        run: git checkout src/index.html
       - name: Build
         run: npm run build -- --configuration=production
