@@ -35,6 +35,7 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: /tmp/credentials.json
       - name: Remove Google Application Credentials
+        if: ${{ !cancelled() }}
         run: rm /tmp/credentials.json
 
 
