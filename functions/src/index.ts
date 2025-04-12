@@ -17,9 +17,9 @@ export const createUserDoc =
     if (!userEmail) {
       throw new Error('No user email');
     }
-    logger.info('Creating user doc for user: ', event.eventId);
+    logger.info('Creating user doc for user: ', event.data.uid);
 
-    await db.collection('users').doc(event.eventId).set({
+    await db.collection('users').doc(event.data.uid).set({
       email: userEmail,
       createdAt: Firestore.FieldValue.serverTimestamp(),
     });
