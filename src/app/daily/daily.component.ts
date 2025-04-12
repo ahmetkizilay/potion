@@ -6,11 +6,10 @@ import { Router } from '@angular/router';
 import { Daily, DailyService } from './daily.service';
 
 @Component({
-  standalone: true,
-  selector: 'app-daily',
-  templateUrl: './daily.component.html',
-  styleUrls: ['./daily.component.css'],
-  imports: [AsyncPipe]
+    selector: 'app-daily',
+    templateUrl: './daily.component.html',
+    styleUrls: ['./daily.component.css'],
+    imports: [AsyncPipe]
 })
 export class DailyComponent implements OnInit {
   private router: Router = inject(Router);

@@ -6,11 +6,10 @@ import { UserService } from '../user/user.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  standalone: true,
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  imports: [CommonModule, ReactiveFormsModule],
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
+    imports: [CommonModule, ReactiveFormsModule]
 })
 export class LoginComponent {
   private router: Router = inject(Router);
