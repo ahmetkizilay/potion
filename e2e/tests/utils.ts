@@ -9,7 +9,11 @@ export function setupBrowserHooks(path = ''): void {
 
   beforeAll(async () => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
-    browser = await puppeteer.launch({headless: true, devtools: false});
+    browser = await puppeteer.launch({ 
+      headless: true, 
+      devtools: false, 
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
   });
 
 
