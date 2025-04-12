@@ -14,7 +14,7 @@ export class UserService implements OnDestroy {
   private userSub: Subscription;
   private currentUser: PotionUser | null = null;
 
-  user$: Observable<User> = userObs(this.auth);
+  user$: Observable<User | null> = userObs(this.auth);
   isSignedIn$ = new ReplaySubject<boolean>(1);
 
   constructor() {
