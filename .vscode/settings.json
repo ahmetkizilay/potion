@@ -1,3 +1,5 @@
 {
-    "explorer.excludeGitIgnore": false
+    "explorer.excludeGitIgnore": false,
+    "IDX.aI.enableInlineCompletion": true,
+    "IDX.aI.enableCodebaseIndexing": true
 }
