@@ -7,7 +7,7 @@ admin.initializeApp();
 const db = admin.firestore();
 
 // Create a user doc in Firestore in the users collection
-export const createUserDoc =
+export const createUserDocV2 =
   beforeUserCreated(async (event) => {
     logger.info('Received beforeUserCreated event: ', event.eventId);
     if (!event.data) {
