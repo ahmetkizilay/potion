@@ -43,7 +43,7 @@
     "@angular/compiler-cli": "^19.2.6",
     "@babel/preset-env": "^7.24.6",
     "@babel/preset-typescript": "^7.24.6",
-    "@firebase/rules-unit-testing": "^3.0.3",
+    "@firebase/rules-unit-testing": "^4.0.1",
     "@puppeteer/ng-schematics": "^0.7.0",
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
