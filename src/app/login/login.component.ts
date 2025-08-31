@@ -3,13 +3,13 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { lastValueFrom, filter, first } from 'rxjs';
 import { UserService } from '../user/user.service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
-    imports: [CommonModule, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class LoginComponent {
   private router: Router = inject(Router);
